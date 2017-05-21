@@ -20,6 +20,7 @@ public/js/devStyling.js
 public/images/
 
 .ungitrc
+.vscode
 
 report/
 .bin/
