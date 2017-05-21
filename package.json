@@ -6,7 +6,10 @@
   "ungitPluginApiVersion": "0.2.0",
   "scripts": {
     "start": "node ./bin/ungit",
-    "test": "grunt test"
+    "test": "grunt test",
+    "start-react": "node scripts/start.js",
+    "build-react": "node scripts/build.js",
+    "test-react": "node scripts/test.js --env=jsdom"
   },
   "repository": {
     "type": "git",
@@ -16,6 +19,11 @@
     "ungit": "./bin/ungit",
     "0ungit-credentials-helper": "./bin/credentials-helper"
   },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "license": "MIT",
+  "main": "public/main.js",
   "dependencies": {
     "async": "~2.4.0",
     "bluebird": "~3.5.0",
@@ -56,7 +64,11 @@
     "superagent": "^0.21.0",
     "temp": "~0.8.3",
     "winston": "~2.3.1",
-    "yargs": "~8.0.0-candidate.0"
+    "yargs": "~8.0.0-candidate.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "ansi-color": "~0.2.1",
@@ -82,13 +94,78 @@
     "istanbul": "~0.4.5",
     "mocha": "~3.3.0",
     "phantomjs-prebuilt": "~2.1.14",
-    "supertest": "~3.0.0"
+    "supertest": "~3.0.0",
+    "autoprefixer": "6.7.2",
+    "babel-core": "6.22.1",
+    "babel-eslint": "7.1.1",
+    "babel-jest": "18.0.0",
+    "babel-loader": "6.2.10",
+    "babel-preset-react-app": "^2.2.0",
+    "babel-runtime": "^6.20.0",
+    "case-sensitive-paths-webpack-plugin": "1.1.4",
+    "chalk": "1.1.3",
+    "connect-history-api-fallback": "1.3.0",
+    "cross-spawn": "4.0.2",
+    "css-loader": "0.26.1",
+    "detect-port": "1.1.0",
+    "dotenv": "2.0.0",
+    "eslint": "3.16.1",
+    "eslint-config-react-app": "^0.6.2",
+    "eslint-loader": "1.6.0",
+    "eslint-plugin-flowtype": "2.21.0",
+    "eslint-plugin-import": "2.0.1",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.4.1",
+    "extract-text-webpack-plugin": "1.0.1",
+    "file-loader": "0.10.0",
+    "fs-extra": "0.30.0",
+    "html-webpack-plugin": "2.24.0",
+    "http-proxy-middleware": "0.17.3",
+    "jest": "18.1.0",
+    "json-loader": "0.5.4",
+    "object-assign": "4.1.1",
+    "postcss-loader": "1.2.2",
+    "promise": "7.1.1",
+    "react-dev-utils": "^0.5.2",
+    "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
+    "webpack": "1.14.0",
+    "webpack-dev-server": "1.16.2",
+    "webpack-manifest-plugin": "1.1.0",
+    "whatwg-fetch": "2.0.2"
   },
-  "engines": {
-    "node": ">=0.10"
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>[/\\\\](build|docs|node_modules|scripts)[/\\\\]"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web"
+    }
   },
-  "license": "MIT",
-  "main": "public/main.js",
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
   "window": {
     "title": "Ungit",
     "icon": "icon.png",
