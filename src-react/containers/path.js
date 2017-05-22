@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
+import 'styles/styles.scss';
+
 @connect(state => { return { ...state } })
 class Path extends Component {
   render() {

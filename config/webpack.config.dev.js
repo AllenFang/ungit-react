@@ -10,7 +10,6 @@ var getClientEnvironment = require('./env');
 var paths = require('./paths');
 
 
-
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 var publicPath = '/';
@@ -75,10 +74,11 @@ module.exports = {
     // some tools, although we do not recommend using it, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
     extensions: ['.js', '.json', '.jsx', ''],
+    modulesDirectories: [ 'src-react', 'node_modules' ],
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web'
+      'react-native': 'react-native-web',
     }
   },
   
@@ -111,6 +111,7 @@ module.exports = {
           // Webpack 2 fixes this, but for now we include this hack.
           // https://github.com/facebookincubator/create-react-app/issues/1713
           /\.(js|jsx)(\?.*)?$/,
+          /\.scss$/,
           /\.css$/,
           /\.json$/,
           /\.svg$/
@@ -142,6 +143,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style!css?importLoaders=1!postcss'
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css!sass'
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
