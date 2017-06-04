@@ -2,6 +2,14 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import ungitApp from './reducers';
 
-const store = createStore(ungitApp, applyMiddleware(thunk));
+const initialState = {
+  ungitConfig: null,
+  path: {
+    pending: false,
+    errMessage: null
+  }
+};
+
+const store = createStore(ungitApp, initialState, applyMiddleware(thunk));
 
 export default store;

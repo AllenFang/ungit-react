@@ -1,17 +1,12 @@
-import * as types from 'constants/action-types';
+import { combineReducers } from 'redux';
 
-const initialState = {
-  ungitConfig: null
-};
+import path from './path';
+import ungitConfig from './ungit-config';
 
-const ungitApp = function(state = initialState, action) {
-  switch(action.type) {
-    case types.RECEIVE_UNGIT_CONFIG:
-    const { ungitConfig } = action;
-      return { ...state, ungitConfig };
-    default:
-      return { ...state };
-  }
-}
+
+const ungitApp = combineReducers({
+  ungitConfig,
+  path
+});
 
 export default ungitApp;
