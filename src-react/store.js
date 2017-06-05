@@ -4,9 +4,14 @@ import ungitApp from './reducers';
 
 const initialState = {
   ungitConfig: null,
+  userConfig: null,
+  versions: {
+    gitVersion: null,
+    latestVersion: null
+  },
   path: {
     pending: false,
-    errMessage: null
+    errMessage: []
   }
 };
 
