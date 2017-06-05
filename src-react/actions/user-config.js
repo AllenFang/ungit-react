@@ -1,18 +1,14 @@
 import * as types from 'constants/action-types';
-import { fetchUserConfig } from './user-config';
 import { apiError } from './common';
 
-export function fetchUngitConfig() {
+export function fetchUserConfig() {
   return dispatch => {
     // consider wrap API call in separate modules
     // it will be easy to stub module's function when testing
-    fetch('http://localhost:8448/ungit/config')
+    fetch('http://localhost:8448/api/userconfig')
       .then(response => response.json())
       .then(json => {
-        if (!json.config.bugtracking) {
-          dispatch(fetchUserConfig());
-        }
-        dispatch(receiveUgitConfig(json));
+        dispatch(receiveUserConfig(json));
       })
       .catch(e => {
         dispatch(apiError(e.message));
@@ -20,9 +16,10 @@ export function fetchUngitConfig() {
   };
 };
 
-function receiveUgitConfig(ungitConfig) {
+
+function receiveUserConfig(userConfig) {
   return {
-    type: types.RECEIVE_UNGIT_CONFIG,
-    payload: ungitConfig
+    type: types.RECEIVE_USER_CONFIG,
+    payload: userConfig
   };
 };
