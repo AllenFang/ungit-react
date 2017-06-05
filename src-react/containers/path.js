@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
-import * as ungitConfigActionCreators from 'actions/ungit-config';
+import * as bootstrapActionCreators from 'actions/bootstrap';
 import 'styles/styles.scss';
 
 @connect(state => { 
   return { ...state };
 }, dispatch => {
   return { 
-    actions: bindActionCreators(Object.assign({}, ungitConfigActionCreators), dispatch) 
+    actions: bindActionCreators(Object.assign({}, bootstrapActionCreators), dispatch) 
   };
 })
 class Path extends Component {
 
   componentWillMount() {
     const { actions } = this.props;
-    actions.fetchUngitConfig();
+    actions.bootstrap();
   }
 
   render() {
