@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
+import AlerArea from 'components/alert-area';
 import * as bootstrapActionCreators from 'actions/bootstrap';
 import 'styles/styles.scss';
 
@@ -20,12 +21,19 @@ class Path extends Component {
   }
 
   render() {
+    const { path: { pending, errMessage }, app } = this.props;
     return (
       <div>
         <div className="app-top-margin"></div>
         <div className="app-wrapper">
-          <div className="container" data-bind="shown: shown" data-ta-container="app">
-          </div>
+          {
+            pending === 0 && errMessage.length === 0 ? (
+              <AlerArea config={ this.props.config }
+                gitVersionErrorVisible={ app.gitVersionErrorVisible }
+                showNewVersionAvailable={ app.showNewVersionAvailable }
+                showBugtrackingNagscreen={ app.showBugtrackingNagscreen } />
+            ) : null
+          }
         </div>
       </div>
     );

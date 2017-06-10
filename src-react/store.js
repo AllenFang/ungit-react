@@ -10,7 +10,7 @@ const initialState = {
     latestVersion: null
   },
   path: {
-    pending: false,
+    pending: null,
     errMessage: []
   }
 };

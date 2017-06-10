@@ -4,7 +4,7 @@ import { pending } from './common';
 
 export function bootstrap() {
   return dispatch => {
-    dispatch(pending());
+    dispatch(pending(4));
     dispatch(fetchUngitConfig());
     dispatch(fetchLatestVersion());
     dispatch(fetchGitVersion());

@@ -1,9 +1,10 @@
 /* This export common using actionCreator */
 import * as types from 'constants/action-types';
 
-export function pending() {
+export function pending(count) {
   return {
-    type: types.PATH_PAGE_PENDING
+    type: types.PATH_PAGE_PENDING,
+    payload: count || 1
   };
 };
 
