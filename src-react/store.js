@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import ungitApp from './reducers';
 
 const initialState = {
-  ungitConfig: null,
-  userConfig: null,
-  versions: {
-    gitVersion: null,
-    latestVersion: null
+  config: {
+    ungitConfig: null,
+    userConfig: null,
+    versions: {
+      gitVersion: null,
+      latestVersion: null
+    }
   },
   path: {
     pending: null,
