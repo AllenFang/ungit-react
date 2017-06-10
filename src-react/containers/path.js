@@ -31,7 +31,8 @@ class Path extends Component {
               <AlerArea config={ this.props.config }
                 gitVersionErrorVisible={ app.gitVersionErrorVisible }
                 showNewVersionAvailable={ app.showNewVersionAvailable }
-                showBugtrackingNagscreen={ app.showBugtrackingNagscreen } />
+                showBugtrackingNagscreen={ app.showBugtrackingNagscreen }
+                showNPSSurvey={ app.showNPSSurvey } />
             ) : null
           }
         </div>

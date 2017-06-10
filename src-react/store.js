@@ -11,6 +11,12 @@ const initialState = {
       latestVersion: null
     }
   },
+  app: {
+    gitVersionErrorVisible: false,
+    showNewVersionAvailable: false,
+    showBugtrackingNagscreen: false,
+    showNPSSurvey: false
+  },
   path: {
     pending: null,
     errMessage: []
