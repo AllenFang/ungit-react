@@ -12,7 +12,7 @@ export function fetchUngitConfig() {
         if (!json.config.bugtracking) {
           dispatch(fetchUserConfig());
         }
-        dispatch(receiveUgitConfig(json));
+        dispatch(receiveUngitConfig(json));
       })
       .catch(e => {
         dispatch(apiError(e.message));
@@ -20,7 +20,7 @@ export function fetchUngitConfig() {
   };
 };
 
-function receiveUgitConfig(ungitConfig) {
+function receiveUngitConfig(ungitConfig) {
   return {
     type: types.RECEIVE_UNGIT_CONFIG,
     payload: ungitConfig

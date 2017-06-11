@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
-import AlerArea from 'components/alert-area';
+import AlertArea from 'components/alert-area';
 import * as bootstrapActionCreators from 'actions/bootstrap';
 import 'styles/styles.scss';
 
@@ -28,7 +28,7 @@ class Path extends Component {
         <div className="app-wrapper">
           {
             pending === 0 && errMessage.length === 0 ? (
-              <AlerArea config={ this.props.config }
+              <AlertArea config={ this.props.config }
                 gitVersionErrorVisible={ app.gitVersionErrorVisible }
                 showNewVersionAvailable={ app.showNewVersionAvailable }
                 showBugtrackingNagscreen={ app.showBugtrackingNagscreen }
