@@ -1,6 +1,6 @@
 import * as types from 'constants/action-types';
 import { fetchUserConfig } from './user-config';
-import { apiError } from './common';
+import { apiError, pending } from './common';
 
 export function fetchUngitConfig() {
   return dispatch => {
@@ -10,6 +10,7 @@ export function fetchUngitConfig() {
       .then(response => response.json())
       .then(json => {
         if (!json.config.bugtracking) {
+          dispatch(pending());
           dispatch(fetchUserConfig());
         }
         dispatch(receiveUngitConfig(json));
