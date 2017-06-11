@@ -3,6 +3,7 @@ const BugTracker = require('./bugtracker');
 const bugtracker = new BugTracker('server');
 const usageStatistics = require('./usage-statistics');
 const express = require('express');
+const cors = require('cors')
 const gitApi = require('./git-api');
 const winston = require('winston');
 const sysinfo = require('./sysinfo');
@@ -107,6 +108,7 @@ const noCache = (req, res, next) => {
 app.use(noCache);
 
 app.use(require('body-parser').json());
+app.use(cors());  // we should consider to remove it when we complete this project
 
 if (config.autoShutdownTimeout) {
   let autoShutdownTimeout;
@@ -267,6 +269,20 @@ app.get('/serverdata.js', (req, res) => {
         `ungit.platform = "${os.platform()}"\n` +
         `ungit.pluginApiVersion = "${require('../package.json').ungitPluginApiVersion}"\n`;
       res.send(text);
+    });
+});
+
+app.get('/ungit/config', (req, res) => {
+  sysinfo.getUserHash()
+    .then((hash) => {
+      const ungitConfig = {
+        config,
+        userHash: hash,
+        version: config.ungitDevVersion,
+        platform: os.platform(),
+        pluginApiVersion: require('../package.json').ungitPluginApiVersion
+      };
+      res.send(JSON.stringify(ungitConfig));
     });
 });
 
