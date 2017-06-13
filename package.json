@@ -162,7 +162,10 @@
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
-    }
+    },
+    "modulePaths": [
+      "src-react"
+    ]
   },
   "babel": {
     "presets": [
