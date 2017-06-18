@@ -2,11 +2,11 @@ import * as types from 'constants/action-types';
 
 function versions(state, action) {
   switch(action.type) {
-    case types.RECEIVE_GIT_VERSION:
-      const { payload: gitVersion } = action;
+    case types.FETCH_GIT_VERSION_SUCCESS:
+      const { data: gitVersion } = action;
       return { ...state, gitVersion };
-    case types.RECEIVE_LATEST_VERSION:
-      const { payload: latestVersion } = action;
+    case types.FETCH_LATEST_VERSION_SUCCESS:
+      const { data: latestVersion } = action;
       return { ...state, latestVersion };
     default:
       return { ...state };
