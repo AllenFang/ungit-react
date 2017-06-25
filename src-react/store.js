@@ -1,20 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import fetchMiddlewareCreator from 'redux-fetch-middleware';
+import { apiMiddleware } from 'redux-api-middleware';
 import ungitApp from './reducers';
 
-const fetchMiddleware = fetchMiddlewareCreator({
-  suffix: ['REQUEST', 'SUCCESS', 'FAILURE'],
-  debug: process.env.NODE_ENV === 'development',
-  fetchOptions: {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }
-});
-
-const middlewares = [thunk, fetchMiddleware];
+// const middlewares = [thunk, fetchMiddleware];
 
 const initialState = {
   config: {
@@ -37,6 +25,6 @@ const initialState = {
   }
 };
 
-const store = createStore(ungitApp, initialState, applyMiddleware(...middlewares));
+const store = createStore(ungitApp, initialState, applyMiddleware(apiMiddleware));
 
 export default store;
