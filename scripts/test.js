@@ -1,4 +1,9 @@
 'use strict';
+const regeneratorRuntime = require('babel-runtime/regenerator');
+
+if (!regeneratorRuntime.default) {
+  regeneratorRuntime.default = regeneratorRuntime;
+}
 
 process.env.NODE_ENV = 'test';
 process.env.PUBLIC_URL = '';
