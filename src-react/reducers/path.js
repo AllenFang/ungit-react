@@ -11,8 +11,8 @@ function path(state, action) {
     case types.FETCH_LATEST_VERSION_FAILURE:
     case types.FETCH_GIT_VERSION_FAILURE:
     case types.FETCH_UNGIT_CONFIG_FAILURE:
-      const { err } = action;
-      return { ...state, pending: state.pending - 1, errMessage: [ ...state.errMessage, err ] };
+      const { payload: { message } } = action;
+      return { ...state, pending: state.pending - 1, errMessage: [ ...state.errMessage, message ] };
     case types.FETCH_USER_CONFIG_SUCCESS:
     case types.FETCH_LATEST_VERSION_SUCCESS:
     case types.FETCH_GIT_VERSION_SUCCESS:
