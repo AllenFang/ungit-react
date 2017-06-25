@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { apiMiddleware } from 'redux-api-middleware';
 import ungitApp from './reducers';
+
+// const middlewares = [thunk, fetchMiddleware];
 
 const initialState = {
   config: {
@@ -23,6 +25,6 @@ const initialState = {
   }
 };
 
-const store = createStore(ungitApp, initialState, applyMiddleware(thunk));
+const store = createStore(ungitApp, initialState, applyMiddleware(apiMiddleware));
 
 export default store;

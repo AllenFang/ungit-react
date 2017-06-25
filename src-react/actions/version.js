@@ -1,46 +1,37 @@
 import * as types from 'constants/action-types';
-import { apiError } from './common';
+import { CALL_API } from 'redux-api-middleware';
 
 export function fetchLatestVersion() {
-  return dispatch => {
-    // consider wrap API call in separate modules
-    // it will be easy to stub module's function when testing
-    fetch('http://localhost:8448/api/latestversion')
-      .then(response => response.json())
-      .then(json => {
-        dispatch(receiveLatestVersion(json));
-      })
-      .catch(e => {
-        dispatch(apiError(e.message));
-      });
+  // return {
+  //   type: types.FETCH_LATEST_VERSION,
+  //   meta: {},
+  //   $payload: {
+  //     url: 'http://localhost:8448/api/latestversion'
+  //   }
+  // };
+  return {
+    [CALL_API]: {
+      endpoint: 'http://localhost:8448/api/latestversion',
+      method: 'GET',
+      types: [
+        types.FETCH_LATEST_VERSION_REQUEST,
+        types.FETCH_LATEST_VERSION_SUCCESS,
+        types.FETCH_LATEST_VERSION_FAILURE
+      ]
+    }
   };
 }
 
 export function fetchGitVersion() {
-  return dispatch => {
-    // consider wrap API call in separate modules
-    // it will be easy to stub module's function when testing
-    fetch('http://localhost:8448/api/gitversion')
-      .then(response => response.json())
-      .then(json => {
-        dispatch(receiveGitVersion(json));
-      })
-      .catch(e => {
-        dispatch(apiError(e.message));
-      });
+  return {
+    [CALL_API]: {
+      endpoint: 'http://localhost:8448/api/gitversion',
+      method: 'GET',
+      types: [
+        types.FETCH_GIT_VERSION_REQUEST,
+        types.FETCH_GIT_VERSION_SUCCESS,
+        types.FETCH_GIT_VERSION_FAILURE
+      ]
+    }
   };
 }
-
-function receiveGitVersion(gitVersion) {
-  return {
-    type: types.RECEIVE_GIT_VERSION,
-    payload: gitVersion
-  };
-}
-
-function receiveLatestVersion(latestVersion) {
-  return {
-    type: types.RECEIVE_LATEST_VERSION,
-    payload: latestVersion
-  };
-};

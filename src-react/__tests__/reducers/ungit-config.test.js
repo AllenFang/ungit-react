@@ -6,14 +6,14 @@ describe('ungit-config.js reducers', () => {
   let initialState;
 
   it('should return original state if action doesn\'t match any case' , function() {
-    const state = ungitConfig(initialState, { type: 'no-op' });
+    const state = ungitConfig(initialState, { type: types.NO_OP });
     expect(state).toEqual({});
   });
 
-  describe('when RECEIVE_UNGIT_CONFIG action dispatch', () => {
+  describe('when FETCH_UNGIT_CONFIG_SUCCESS action dispatch', () => {
     it('state should have ungit configuration correctly', function() {
       // TODO: consider to use sinon to mock data and make mock data reuseable and meaningful
-      const action = { type: types.RECEIVE_UNGIT_CONFIG, payload: {
+      const action = { type: types.FETCH_UNGIT_CONFIG_SUCCESS, payload: {
         config: {
           allowCheckoutNodes: false,
           autoStashAndPop: true

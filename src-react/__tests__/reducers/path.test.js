@@ -4,11 +4,26 @@ import path from 'reducers/path';
 
 describe('path.js reducers', () => {
   let initialState;
-  const DECREASE_PENDING_ACTIONS = [
-    types.RECEIVE_UNGIT_CONFIG,
-    types.RECEIVE_USER_CONFIG,
-    types.RECEIVE_GIT_VERSION, 
-    types.RECEIVE_LATEST_VERSION 
+  
+  const REQUEST_ACTIONS = [
+    types.FETCH_USER_CONFIG_REQUEST,
+    types.FETCH_LATEST_VERSION_REQUEST,
+    types.FETCH_GIT_VERSION_REQUEST, 
+    types.FETCH_UNGIT_CONFIG_REQUEST 
+  ];
+  
+  const SUCCESS_ACTIONS = [
+    types.FETCH_USER_CONFIG_SUCCESS,
+    types.FETCH_LATEST_VERSION_SUCCESS,
+    types.FETCH_GIT_VERSION_SUCCESS, 
+    types.FETCH_UNGIT_CONFIG_SUCCESS 
+  ];
+
+  const FAILURE_ACTIONS = [
+    types.FETCH_USER_CONFIG_FAILURE,
+    types.FETCH_LATEST_VERSION_FAILURE,
+    types.FETCH_GIT_VERSION_FAILURE, 
+    types.FETCH_UNGIT_CONFIG_FAILURE 
   ];
 
   beforeEach(() => {
@@ -19,25 +34,29 @@ describe('path.js reducers', () => {
   });
 
   it('should return original state if action doesn\'t match any case' , function() {
-    const state = path(initialState, { type: 'no-op' });
+    const state = path(initialState, { type: types.NO_OP });
     expect(state.pending).toEqual(initialState.pending);
     expect(state.errMessage.length).toEqual(initialState.errMessage.length);
   });
 
-  describe('when PATH_PAGE_PENDING action dispatch', () => {
-    it('pending state should be calculated correctly', function() {
-      const action1 = { type: types.PATH_PAGE_PENDING, payload: 1 };
-      const action2 = { type: types.PATH_PAGE_PENDING, payload: 3 };
+  REQUEST_ACTIONS.forEach(actionName => {
+    describe(`when ${actionName} action dispatch`, () => {
+      beforeEach(() => {
+        initialState = {
+          pending: 1,
+          errMessage: []
+        };
+      });
+      it('pending state should be plus one', () => {
+        const action = { type: actionName };
 
-      const state1 = path(initialState, action1);
-      expect(state1.pending).toEqual(initialState.pending + action1.payload);
-
-      const state2 = path(state1, action2);
-      expect(state2.pending).toEqual(state1.pending + action2.payload);
+        const state = path(initialState, action);
+        expect(state.pending).toEqual(initialState.pending + 1);
+      });
     });
   });
 
-  DECREASE_PENDING_ACTIONS.forEach(actionName => {
+  SUCCESS_ACTIONS.forEach(actionName => {
     describe(`when ${actionName} action dispatch`, () => {
       beforeEach(() => {
         initialState = {
@@ -53,21 +72,22 @@ describe('path.js reducers', () => {
       });
     });
   });
-  
-  describe('when PATH_PAGE_API_ERR action dispatch', () => {
-    it('pending state should be minused one', function() {
-      const action = { type: types.PATH_PAGE_API_ERR, payload: 'error message' };
 
-      const state = path(initialState, action);
-      expect(state.pending).toEqual(initialState.pending - 1);
-    });
+  FAILURE_ACTIONS.forEach(actionName => {
+    describe(`when ${actionName} action dispatch`, () => {
+      beforeEach(() => {
+        initialState = {
+          pending: 1,
+          errMessage: []
+        };
+      });
+      it('pending state should be minused one', () => {
+        const action = { type: actionName, payload: { message: 'error' } };
 
-    it('errMessage state should correct content', function() {
-      const action = { type: types.PATH_PAGE_API_ERR, payload: 'error message' };
-
-      const state = path(initialState, action);
-      expect(state.errMessage.length).toEqual(initialState.errMessage.length + 1);
-      expect(state.errMessage[0]).toEqual(action.payload);
+        const state = path(initialState, action);
+        expect(state.pending).toEqual(initialState.pending - 1);
+        expect(state.errMessage[0]).toEqual(action.payload.message);
+      });
     });
   });
 });

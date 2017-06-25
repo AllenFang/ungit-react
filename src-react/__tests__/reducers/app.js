@@ -18,7 +18,7 @@ describe('app.js reducers', () => {
   describe('when action doesn\'t match any case' , () => {
 
     it('should return original state except the showNPSSurvey state', () => {
-      const state = app(initialState, { type: 'no-op' });
+      const state = app(initialState, { type: types.NO_OP });
       expect(state.gitVersionErrorVisible).toEqual(initialState.gitVersionErrorVisible);
       expect(state.showNewVersionAvailable).toEqual(initialState.showNewVersionAvailable);
       expect(state.showBugtrackingNagscreen).toEqual(initialState.showBugtrackingNagscreen);
@@ -31,7 +31,7 @@ describe('app.js reducers', () => {
       });
 
       it('showNPSSurvey state will be true', () => {
-        const state = app(initialState, { type: 'no-op' });
+        const state = app(initialState, { type: types.NO_OP });
         expect(state.showNPSSurvey).toEqual(true);
       });
 
@@ -47,7 +47,7 @@ describe('app.js reducers', () => {
       });
 
       it('showNPSSurvey state will be false', () => {
-        const state = app(initialState, { type: 'no-op' });
+        const state = app(initialState, { type: types.NO_OP });
         expect(state.showNPSSurvey).toEqual(false);
       });
 
@@ -63,7 +63,7 @@ describe('app.js reducers', () => {
       });
 
       it('showNPSSurvey state will be false', () => {
-        const state = app(initialState, { type: 'no-op' });
+        const state = app(initialState, { type: types.NO_OP });
         expect(state.showNPSSurvey).toEqual(false);
       });
 
@@ -73,11 +73,11 @@ describe('app.js reducers', () => {
     });
   });
 
-  describe('when RECEIVE_UNGIT_CONFIG action dispatch', () => {
+  describe('when FETCH_UNGIT_CONFIG_SUCCESS action dispatch', () => {
     describe('if ungitConfig.config.bugtracking is false and bugtrackingNagscreenDismissed is false', () => {
       it('showBugtrackingNagscreen state will be true', () => {
         const ungitConfig = { config: { bugtracking: false } };
-        const state = app(initialState, { type: types.RECEIVE_UNGIT_CONFIG, payload: ungitConfig }, { ungitConfig });
+        const state = app(initialState, { type: types.FETCH_UNGIT_CONFIG_SUCCESS, payload: ungitConfig }, { ungitConfig });
         expect(state.showBugtrackingNagscreen).toEqual(true);
       });
     });
@@ -85,7 +85,7 @@ describe('app.js reducers', () => {
     describe('if ungitConfig.config.bugtracking is true', () => {
       it('showBugtrackingNagscreen state will be false', () => {
         const ungitConfig = { config: { bugtracking: true } };
-        const state = app(initialState, { type: types.RECEIVE_UNGIT_CONFIG, payload: ungitConfig }, { ungitConfig });
+        const state = app(initialState, { type: types.FETCH_UNGIT_CONFIG_SUCCESS, payload: ungitConfig }, { ungitConfig });
         expect(state.showBugtrackingNagscreen).toEqual(false);
       });
     });
@@ -94,13 +94,13 @@ describe('app.js reducers', () => {
       it('showBugtrackingNagscreen state will be false', () => {
         localStorage.setItem('bugtrackingNagscreenDismissed', true);
         const ungitConfig = { config: { bugtracking: false } };
-        const state = app(initialState, { type: types.RECEIVE_UNGIT_CONFIG, payload: ungitConfig }, { ungitConfig });
+        const state = app(initialState, { type: types.FETCH_UNGIT_CONFIG_SUCCESS, payload: ungitConfig }, { ungitConfig });
         expect(state.showBugtrackingNagscreen).toEqual(false);
       });
     });
   });
 
-  describe('when RECEIVE_GIT_VERSION action dispatch', () => {
+  describe('when FETCH_GIT_VERSION_SUCCESS action dispatch', () => {
     describe('if ungitConfig.config.gitVersionCheckOverride is false and gitVersionError is defined && gitVersionErrorDismissed is false', () => {
       it('gitVersionErrorVisible state will be true', () => {
         localStorage.setItem('gitVersionErrorDismissed', false);
@@ -111,7 +111,7 @@ describe('app.js reducers', () => {
         };
         const config = { ungitConfig, versions: { gitVersion } };
 
-        const state = app(initialState, { type: types.RECEIVE_GIT_VERSION, payload: gitVersion }, config);
+        const state = app(initialState, { type: types.FETCH_GIT_VERSION_SUCCESS, payload: gitVersion }, config);
         expect(state.gitVersionErrorVisible).toEqual(true);
       });
     });
@@ -126,7 +126,7 @@ describe('app.js reducers', () => {
         };
         const config = { ungitConfig, versions: { gitVersion } };
 
-        const state = app(initialState, { type: types.RECEIVE_GIT_VERSION, payload: gitVersion }, config);
+        const state = app(initialState, { type: types.FETCH_GIT_VERSION_SUCCESS, payload: gitVersion }, config);
         expect(state.gitVersionErrorVisible).toEqual(false);
       });
     });
@@ -138,7 +138,7 @@ describe('app.js reducers', () => {
         const gitVersion = { satisfied: true };
         const config = { ungitConfig, versions: { gitVersion } };
 
-        const state = app(initialState, { type: types.RECEIVE_GIT_VERSION, payload: gitVersion }, config);
+        const state = app(initialState, { type: types.FETCH_GIT_VERSION_SUCCESS, payload: gitVersion }, config);
         expect(state.gitVersionErrorVisible).toEqual(false);
       });
     });
@@ -153,20 +153,20 @@ describe('app.js reducers', () => {
         };
         const config = { ungitConfig, versions: { gitVersion } };
 
-        const state = app(initialState, { type: types.RECEIVE_GIT_VERSION, payload: gitVersion }, config);
+        const state = app(initialState, { type: types.FETCH_GIT_VERSION_SUCCESS, payload: gitVersion }, config);
         expect(state.gitVersionErrorVisible).toEqual(false);
       });
     });
   });
 
-  describe('when RECEIVE_LATEST_VERSION action dispatch', () => {
+  describe('when FETCH_LATEST_VERSION_SUCCESS action dispatch', () => {
     describe('gitVersionCheckOverride is false and latestVersion.outdated is true', () => {
       it('showNewVersionAvailable state will be true', () => {
         const ungitConfig = { config: { gitVersionCheckOverride: false } };
         const latestVersion = { outdated: true };
         const config = { ungitConfig, versions: { latestVersion } };
 
-        const state = app(initialState, { type: types.RECEIVE_LATEST_VERSION, payload: latestVersion }, config);
+        const state = app(initialState, { type: types.FETCH_LATEST_VERSION_SUCCESS, payload: latestVersion }, config);
         expect(state.showNewVersionAvailable).toEqual(true);
       });
     });
@@ -177,7 +177,7 @@ describe('app.js reducers', () => {
         const latestVersion = { outdated: true };
         const config = { ungitConfig, versions: { latestVersion } };
 
-        const state = app(initialState, { type: types.RECEIVE_LATEST_VERSION, payload: latestVersion }, config);
+        const state = app(initialState, { type: types.FETCH_LATEST_VERSION_SUCCESS, payload: latestVersion }, config);
         expect(state.showNewVersionAvailable).toEqual(false);
       });
     });
@@ -188,20 +188,20 @@ describe('app.js reducers', () => {
         const latestVersion = { outdated: false };
         const config = { ungitConfig, versions: { latestVersion } };
 
-        const state = app(initialState, { type: types.RECEIVE_LATEST_VERSION, payload: latestVersion }, config);
+        const state = app(initialState, { type: types.FETCH_LATEST_VERSION_SUCCESS, payload: latestVersion }, config);
         expect(state.showNewVersionAvailable).toEqual(false);
       });
     });
   });
 
-  describe('when RECEIVE_USER_CONFIG action dispatch', () => {
+  describe('when FETCH_USER_CONFIG_SUCCESS action dispatch', () => {
     describe('userConfig.bugtracking = false and bugtrackingNagscreenDismissed = false', () => {
       it('showBugtrackingNagscreen state will be true', () => {
         const userConfig = { bugtracking: false };
         const ungitConfig = { config: { bugtracking: true } };
         localStorage.setItem('bugtrackingNagscreenDismissed', false);
 
-        const state = app(initialState, { type: types.RECEIVE_USER_CONFIG, payload: userConfig }, { userConfig, ungitConfig });
+        const state = app(initialState, { type: types.FETCH_USER_CONFIG_SUCCESS, payload: userConfig }, { userConfig, ungitConfig });
         expect(state.showBugtrackingNagscreen).toEqual(true);
       });
     });
@@ -212,7 +212,7 @@ describe('app.js reducers', () => {
         const ungitConfig = { config: { bugtracking: true } };
         localStorage.setItem('bugtrackingNagscreenDismissed', false);
 
-        const state = app(initialState, { type: types.RECEIVE_USER_CONFIG, payload: userConfig }, { userConfig, ungitConfig });
+        const state = app(initialState, { type: types.FETCH_USER_CONFIG_SUCCESS, payload: userConfig }, { userConfig, ungitConfig });
         expect(state.showBugtrackingNagscreen).toEqual(false);
       });
     });
@@ -223,7 +223,7 @@ describe('app.js reducers', () => {
         const ungitConfig = { config: { bugtracking: true } };
         localStorage.setItem('bugtrackingNagscreenDismissed', true);
 
-        const state = app(initialState, { type: types.RECEIVE_USER_CONFIG, payload: userConfig }, { userConfig, ungitConfig });
+        const state = app(initialState, { type: types.FETCH_USER_CONFIG_SUCCESS, payload: userConfig }, { userConfig, ungitConfig });
         expect(state.showBugtrackingNagscreen).toEqual(false);
       });
     });
