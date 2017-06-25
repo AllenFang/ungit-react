@@ -2,13 +2,6 @@ import * as types from 'constants/action-types';
 import { CALL_API } from 'redux-api-middleware';
 
 export function fetchLatestVersion() {
-  // return {
-  //   type: types.FETCH_LATEST_VERSION,
-  //   meta: {},
-  //   $payload: {
-  //     url: 'http://localhost:8448/api/latestversion'
-  //   }
-  // };
   return {
     [CALL_API]: {
       endpoint: 'http://localhost:8448/api/latestversion',
