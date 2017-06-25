@@ -1,11 +1,11 @@
 import * as types from 'constants/action-types';
 
-function userConfig(state, action) {
+function versions(state, action) {
   switch(action.type) {
-    case types.RECEIVE_GIT_VERSION:
+    case types.FETCH_GIT_VERSION_SUCCESS:
       const { payload: gitVersion } = action;
       return { ...state, gitVersion };
-    case types.RECEIVE_LATEST_VERSION:
+    case types.FETCH_LATEST_VERSION_SUCCESS:
       const { payload: latestVersion } = action;
       return { ...state, latestVersion };
     default:
@@ -13,4 +13,4 @@ function userConfig(state, action) {
   }
 }
 
-export default userConfig;
+export default versions;

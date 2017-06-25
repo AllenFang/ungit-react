@@ -2,16 +2,22 @@ import * as types from 'constants/action-types';
 
 function path(state, action) {
   switch(action.type) {
-    case types.PATH_PAGE_PENDING:
-      return { ...state, pending: state.pending + action.payload };
-    case types.RECEIVE_UNGIT_CONFIG:
-    case types.RECEIVE_USER_CONFIG:
-    case types.RECEIVE_GIT_VERSION:
-    case types.RECEIVE_LATEST_VERSION:
+    case types.FETCH_USER_CONFIG_REQUEST:
+    case types.FETCH_LATEST_VERSION_REQUEST:
+    case types.FETCH_GIT_VERSION_REQUEST:
+    case types.FETCH_UNGIT_CONFIG_REQUEST:
+      return { ...state, pending: state.pending + 1 };
+    case types.FETCH_USER_CONFIG_FAILURE:
+    case types.FETCH_LATEST_VERSION_FAILURE:
+    case types.FETCH_GIT_VERSION_FAILURE:
+    case types.FETCH_UNGIT_CONFIG_FAILURE:
+      const { payload: { message } } = action;
+      return { ...state, pending: state.pending - 1, errMessage: [ ...state.errMessage, message ] };
+    case types.FETCH_USER_CONFIG_SUCCESS:
+    case types.FETCH_LATEST_VERSION_SUCCESS:
+    case types.FETCH_GIT_VERSION_SUCCESS:
+    case types.FETCH_UNGIT_CONFIG_SUCCESS:
       return { ...state, pending: state.pending - 1 };
-    case types.PATH_PAGE_API_ERR:
-      const { payload: errMessage } = action;
-      return { ...state, pending: state.pending - 1, errMessage: [ ...state.errMessage, errMessage ] };
     default:
       return { ...state };
   }

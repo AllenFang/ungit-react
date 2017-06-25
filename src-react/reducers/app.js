@@ -3,25 +3,25 @@ import * as types from 'constants/action-types';
 function app(state, action, config) {
   
   switch(action.type) {
-    case types.RECEIVE_UNGIT_CONFIG: {
+    case types.FETCH_UNGIT_CONFIG_SUCCESS: {
       const { ungitConfig } = config;
-      const bugtrackingNagscreenDismissed = localStorage.getItem('bugtrackingNagscreenDismissed');
+      const bugtrackingNagscreenDismissed = localStorage.getItem('bugtrackingNagscreenDismissed') === 'true';
       const showBugtrackingNagscreen = !ungitConfig.config.bugtracking && !bugtrackingNagscreenDismissed;
 
       return { ...state, showBugtrackingNagscreen };
     }
 
-    case types.RECEIVE_GIT_VERSION: {
+    case types.FETCH_GIT_VERSION_SUCCESS: {
       const { ungitConfig, versions: { gitVersion } } = config;
       const gitVersionCheckOverride = ungitConfig.config && ungitConfig.config.gitVersionCheckOverride;
-      const gitVersionErrorDismissed = localStorage.getItem('gitVersionErrorDismissed');
+      const gitVersionErrorDismissed = localStorage.getItem('gitVersionErrorDismissed') === 'true';
       const gitVersionError = gitVersion && !gitVersion.satisfied && gitVersion.error;
-      const gitVersionErrorVisible = !gitVersionCheckOverride && gitVersionError && gitVersionErrorDismissed;
+      const gitVersionErrorVisible = !gitVersionCheckOverride && gitVersionError && !gitVersionErrorDismissed;
 
       return { ...state, gitVersionErrorVisible };
     }
     
-    case types.RECEIVE_LATEST_VERSION: {
+    case types.FETCH_LATEST_VERSION_SUCCESS: {
       const { ungitConfig, versions: { latestVersion } } = config;
       const gitVersionCheckOverride = ungitConfig.config && ungitConfig.config.gitVersionCheckOverride;
       const outdated = latestVersion && latestVersion.outdated;
@@ -30,9 +30,9 @@ function app(state, action, config) {
       return { ...state, showNewVersionAvailable };
     }
 
-    case types.RECEIVE_USER_CONFIG: {
+    case types.FETCH_USER_CONFIG_SUCCESS: {
       const { userConfig } = config;
-      const bugtrackingNagscreenDismissed = localStorage.getItem('bugtrackingNagscreenDismissed');
+      const bugtrackingNagscreenDismissed = localStorage.getItem('bugtrackingNagscreenDismissed') === 'true';
       const showBugtrackingNagscreen = !userConfig.bugtracking && !bugtrackingNagscreenDismissed;
 
       return { ...state, showBugtrackingNagscreen };
