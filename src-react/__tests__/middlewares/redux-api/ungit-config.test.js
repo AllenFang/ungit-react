@@ -3,8 +3,9 @@ import sinon from 'sinon';
 import expect from 'expect.js';
 import configureStore from 'redux-mock-store';
 import { createStore, applyMiddleware } from 'redux';
-import { apiMiddleware, CALL_API } from 'redux-api-middleware';
+import { apiMiddleware } from 'redux-api-middleware';
 
+import { FETCH_HEADER } from '../../utils/constants';
 import * as types from 'constants/action-types';
 import { fetchUngitConfig } from 'actions/ungit-config';
 
@@ -17,11 +18,11 @@ describe('redux-api-middleware::ungit-config', () => {
     beforeEach(() => {
       nock('http://localhost:8448')
         .get('/ungit/config')
-        .reply(200, mockPayload);
+        .reply(200, mockPayload, FETCH_HEADER);
 
       nock('http://localhost:8448')
         .get('/api/userconfig')
-        .reply(200, mockPayload);
+        .reply(200, mockPayload, FETCH_HEADER);
     });
 
     it('should dispatch \'FETCH_UNGIT_CONFIG_REQUEST\'', done => {
@@ -58,7 +59,7 @@ describe('redux-api-middleware::ungit-config', () => {
     beforeEach(() => {
       nock('http://localhost:8448')
         .get('/ungit/config')
-        .reply(500, null);
+        .reply(500, null, FETCH_HEADER);
     });
 
     it('should dispatch \'FETCH_UNGIT_CONFIG_FAILURE\'', done => {
