@@ -1,9 +1,9 @@
 import * as types from 'constants/action-types';
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 export function fetchUserConfig() {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       endpoint: 'http://localhost:8448/api/userconfig',
       method: 'GET',
       types: [

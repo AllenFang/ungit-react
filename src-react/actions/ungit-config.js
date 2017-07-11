@@ -1,11 +1,11 @@
 import * as types from 'constants/action-types';
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 import { fetchUserConfig } from './user-config';
 import store from 'store';
 
 export function fetchUngitConfig() {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       endpoint: 'http://localhost:8448/ungit/config',
       method: 'GET',
       types: [
