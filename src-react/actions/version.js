@@ -28,3 +28,7 @@ export function fetchGitVersion() {
     }
   };
 }
+
+export function dismissGitVersionError() {
+  return { type: types.DISMISS_GIT_VERSION_ERROR };
+}
