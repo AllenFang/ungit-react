@@ -37,6 +37,12 @@ function app(state, action, config) {
 
       return { ...state, showBugtrackingNagscreen };
     }
+
+    case types.DISMISS_GIT_VERSION_ERROR:{
+      localStorage.setItem('gitVersionErrorDismissed', true);
+      return { ...state, gitVersionErrorVisible: false };
+    }
+
     default:
       const NPSSurveyLastDismissed = parseInt(localStorage.getItem('NPSSurveyLastDismissed') || '0', 10);
       const monthsSinceNPSLastDismissed = (Date.now() - NPSSurveyLastDismissed) / (1000 * 60 * 60 * 24 * 30);

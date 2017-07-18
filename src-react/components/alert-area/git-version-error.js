@@ -1,15 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 class GitVersionError extends Component {
   static propTypes = {
-    gitVersionError: PropTypes.string
+    gitVersionError: PropTypes.string,
+    onDismiss: PropTypes.func.isRequired
   }
 
   render() {
+    const { gitVersionError, onDismiss } = this.props;
     return (
-      <div class="alert alert-danger">
-        <span>{ this.props.gitVersionError }</span>
-        <button type="button" className="close" data-bind="click: dismissGitVersionError">&times;</button>
+      <div className="alert alert-danger">
+        <span>{ gitVersionError }</span>
+        <button type="button" className="close" onClick={ () => onDismiss() }>&times;</button>
       </div>
     );
   }

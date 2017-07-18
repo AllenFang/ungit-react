@@ -7,6 +7,7 @@ import NPSSurvey from './nps-survey';
 
 class AlertArea extends Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired, 
     config: PropTypes.object.isRequired,
     gitVersionErrorVisible: PropTypes.bool.isRequired,
     showNewVersionAvailable: PropTypes.bool.isRequired,
@@ -16,6 +17,7 @@ class AlertArea extends Component {
 
   render() {
     const {
+      actions,
       config: {
         ungitConfig: { platform },
         versions: {
@@ -34,7 +36,7 @@ class AlertArea extends Component {
       <div className="container" data-ta-container="app">
         {
           gitVersionErrorVisible ? (
-            <GitVersionError gitVersionError={ error }/>
+            <GitVersionError gitVersionError={ error } onDismiss={ actions.dismissGitVersionError }/>
           ) : null
         }
         {

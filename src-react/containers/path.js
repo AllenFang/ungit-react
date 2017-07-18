@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 
 import AlertArea from 'components/alert-area';
 import * as bootstrapActionCreators from 'actions/bootstrap';
+import * as versionActionCreators from 'actions/version';
 import 'styles/styles.scss';
-
 @connect(state => { 
   return { ...state };
 }, dispatch => {
   return { 
-    actions: bindActionCreators(Object.assign({}, bootstrapActionCreators), dispatch) 
+    actions: bindActionCreators(Object.assign({},
+      bootstrapActionCreators, versionActionCreators), dispatch)
   };
 })
 class Path extends Component {
@@ -21,7 +22,14 @@ class Path extends Component {
   }
 
   render() {
-    const { path: { pending, errMessage }, app } = this.props;
+    const {
+      app,
+      path: { pending, errMessage },
+      actions: {
+        dismissGitVersionError
+      } } = this.props;
+    const alertAreaActions = { dismissGitVersionError };
+
     return (
       <div>
         <div className="app-top-margin"></div>
@@ -29,6 +37,7 @@ class Path extends Component {
           {
             pending === 0 && errMessage.length === 0 ? (
               <AlertArea config={ this.props.config }
+                actions={ { ...alertAreaActions } }
                 gitVersionErrorVisible={ app.gitVersionErrorVisible }
                 showNewVersionAvailable={ app.showNewVersionAvailable }
                 showBugtrackingNagscreen={ app.showBugtrackingNagscreen }
