@@ -228,4 +228,23 @@ describe('app.js reducers', () => {
       });
     });
   });
+
+  describe('when DISMISS_GIT_VERSION_ERROR action dispatch', () => {
+    it('should force set gitVersionErrorDismissed as ture in localStorage', () => {
+      const state = app(initialState, { type: types.DISMISS_GIT_VERSION_ERROR }, {});
+      expect(localStorage.getItem('gitVersionErrorDismissed')).toEqual('true');
+    });
+
+    it('gitVersionErrorVisible state will be false', () => {
+      const state = app(initialState, { type: types.DISMISS_GIT_VERSION_ERROR }, {});
+      expect(state.gitVersionErrorVisible).toBe(false);
+    });
+  });
+
+  describe('when DISMISS_NEW_VERSION action dispatch', () => {
+    it('showNewVersionAvailable state will be false', () => {
+      const state = app(initialState, { type: types.DISMISS_NEW_VERSION }, {});
+      expect(state.showNewVersionAvailable).toBe(false);
+    });
+  });
 });
