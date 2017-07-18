@@ -43,7 +43,8 @@ class AlertArea extends Component {
           showNewVersionAvailable ? (
             <NewVersionAvailable
               latestVersion={ latestVersion }
-              platform={ platform }/>
+              platform={ platform }
+              onDismiss={ actions.dismissNewVersion }/>
           ) : null
         }
         {

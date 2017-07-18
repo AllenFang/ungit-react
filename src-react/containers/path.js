@@ -26,9 +26,10 @@ class Path extends Component {
       app,
       path: { pending, errMessage },
       actions: {
-        dismissGitVersionError
+        dismissGitVersionError,
+        dismissNewVersion
       } } = this.props;
-    const alertAreaActions = { dismissGitVersionError };
+    const alertAreaActions = { dismissGitVersionError, dismissNewVersion };
 
     return (
       <div>

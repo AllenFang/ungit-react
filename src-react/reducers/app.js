@@ -43,6 +43,10 @@ function app(state, action, config) {
       return { ...state, gitVersionErrorVisible: false };
     }
 
+    case types.DISMISS_NEW_VERSION: {
+      return { ...state, showNewVersionAvailable: false };
+    }
+
     default:
       const NPSSurveyLastDismissed = parseInt(localStorage.getItem('NPSSurveyLastDismissed') || '0', 10);
       const monthsSinceNPSLastDismissed = (Date.now() - NPSSurveyLastDismissed) / (1000 * 60 * 60 * 24 * 30);
